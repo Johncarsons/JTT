@@ -21,9 +21,10 @@ class MainActivity : ComponentActivity() {
         FirebaseApp.initializeApp(this)
         enableEdgeToEdge()
         setContent {
+            JTTTheme {
 
                 ConfessionScreen()
-
+            }
         }
     }
 }
