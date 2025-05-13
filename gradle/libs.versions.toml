@@ -5,8 +5,11 @@ converterGson = "2.9.0"
 firebaseBom = "33.13.0"
 firebaseBomVersion = "32.7.0"
 hiltAndroid = "2.48"
+hiltAndroidCompiler = "2.48"
+hiltAndroidVersion = "2.49"
 hiltCompiler = "2.48"
 hiltNavigationCompose = "1.2.0"
+hiltNavigationComposeVersion = "1.1.0"
 kotlin = "2.0.21"
 coreKtx = "1.16.0"
 junit = "4.13.2"
@@ -41,7 +44,10 @@ firebase-firestore-ktx = { module = "com.google.firebase:firebase-firestore-ktx"
 google-firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx" }
 google-firebase-firestore-ktx = { module = "com.google.firebase:firebase-firestore-ktx" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
+hilt-android-v249 = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroidVersion" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltCompiler" }
+hilt-navigation-compose = { module = "'androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationComposeVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

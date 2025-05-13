@@ -1,5 +1,6 @@
 plugins {
     id("com.google.dagger.hilt.android")
+    id ("dagger.hilt.android.plugin")  // Hilt plugin
     kotlin("kapt")
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -45,8 +46,10 @@ android {
 }
 
 dependencies {
+
+
+    // For Hilt with Jetpack Compose
     implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
 
@@ -55,11 +58,6 @@ dependencies {
 
     // Lifecycle
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
-
-    implementation(libs.hilt.android)
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
-    implementation(libs.androidx.hilt.navigation.compose)
 
     // Firebase
     implementation(platform(libs.firebase.bom))
@@ -106,4 +104,3 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 }
 
-private fun DependencyHandlerScope.kapt() {}
