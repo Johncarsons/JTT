@@ -1,8 +1,5 @@
 package com.example.jtt.viewmodel
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.jtt.repository.FirebaseRepository
@@ -12,24 +9,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-//class ConfessionViewModel : ViewModel() {
-//    private val repo = FirebaseRepository()
-//    var roast by mutableStateOf("")
-//    var isLoading by mutableStateOf(false)
-//
-//    fun postConfession(text: String) {
-//        viewModelScope.launch {
-//            isLoading = true
-//            try {
-//                roast = repo.postConfession(text).toString()
-//            } catch (e: Exception) {
-//                roast = "Error: ${e.message}"
-//            } finally {
-//                isLoading = false
-//            }
-//        }
-//    }
-//}
+
 @HiltViewModel
 class ConfessionViewModel @Inject constructor(
     private val repo: FirebaseRepository
@@ -40,10 +20,25 @@ class ConfessionViewModel @Inject constructor(
     fun postConfession(text: String) {
         viewModelScope.launch {
             _uiState.value = UiState.Loading
-            _uiState.value = when (val result = repo.postConfession(text)) {
-                is Result.Success -> UiState.Success(result.value)
-                is Result.Failure -> UiState.Error(result.exception.message)
+            try {
+                val result = repo.postConfession(text)
+
+                // Check if the result was successful or not
+                if (result.isSuccess) {
+                    val value = result.getOrNull()
+                    _uiState.value = UiState.Success(value ?: "No confession text returned.")
+                } else {
+                    val error = result.exceptionOrNull()?.message ?: "An unknown error occurred"
+                    _uiState.value = UiState.Error(error)
+                }
+            } catch (e: Exception) {
+                _uiState.value = UiState.Error(e.message ?: "An unknown error occurred")
             }
+
+//            _uiState.value = when (val result = repo.postConfession(text)) {
+//                is Result.Success -> UiState.Success(result.value)
+//                else -> UiState.Error(result.exception.message)
+//            }
         }
     }
 

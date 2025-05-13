@@ -48,12 +48,23 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 import com.google.gson.annotations.SerializedName
 
-interface OpenAIApiService {
-    @Headers("Content-Type: application/json")
+interface OpenAIApi {
     @POST("v1/chat/completions")
+    @Headers("Content-Type: application/json")
     suspend fun generateRoast(
         @Body request: OpenAIRequest
-    ): Response<OpenAIResponse>  // Fixed Response type
+    ): Response<OpenAIResponse>
+    companion object {
+        val service: OpenAIApi by lazy {
+            Retrofit.Builder()
+                .baseUrl("https://api.openai.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(OpenAIApi::class.java)
+        }
+    }
+
+
 }
 
 data class OpenAIRequest(
@@ -66,4 +77,3 @@ data class Message(val role: String = "user", val content: String)
 data class OpenAIResponse(val choices: List<Choice>)
 data class Choice(val message: Message)
 
-annotation class OpenAIApi
